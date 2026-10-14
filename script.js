@@ -2,7 +2,7 @@ const tvUrl = "https://api.tvmaze.com/search/shows?q=";
 const castUrl = "https://api.tvmaze.com/shows/SHOW_ID/cast";
 
 let id = (id) => document.getElementById(id);
-
+let results = document.getElementById("results");
 
 let submitButton = document.getElementById("submit-btn");
 
@@ -54,7 +54,10 @@ submitButton.addEventListener("click", async function (event) {
 function createShowCard(show) {
     card = document.createElement("div");
     card.classList.add("show-card");
+    let ShowName = document.createElement("h2");
+    ShowName.textContent = show.name;
+    card.appendChild(ShowName);
     console.log(show.name);
 
-
+    results.appendChild(card);
 }
