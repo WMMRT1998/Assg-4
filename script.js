@@ -8,6 +8,7 @@ let submitButton = document.getElementById("submit-btn");
 
 submitButton.addEventListener("click", async function (event) {
     event.preventDefault();
+    clearResults();
     
     let params = new FormData(id("input-form"));
 
@@ -101,4 +102,10 @@ async function createShowCard(show) {
     console.log(show.name);
 
     results.appendChild(card);
+}
+
+function clearResults() {
+    while (results.firstChild) {
+        results.removeChild(results.firstChild);
+    }
 }
