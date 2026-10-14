@@ -6,16 +6,26 @@ let id = (id) => document.getElementById(id);
 
 let submitButton = document.getElementById("submit-btn");
 
-submitButton.addEventListener("click", function(event) {
-  event.preventDefault();
-  let params = new FormData(id("input-form"));
-  fetch(tvUrl + encodeURIComponent(params.get("Show")))
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
+submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    let params = new FormData(id("input-form"));
+    fetch(tvUrl + encodeURIComponent(params.get("Show")))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+
+        
+        .then(shows => {
+            console.log(shows)
+            console.log(shows[0].show.name)
+        
+        
+        })
+       
+        
+       
+        .catch(error => console.error('Error:', error));
 });
