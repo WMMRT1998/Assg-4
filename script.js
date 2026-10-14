@@ -6,11 +6,17 @@ let id = (id) => document.getElementById(id);
 
 let submitButton = document.getElementById("submit-btn");
 
-submitButton.addEventListener("click", function (event) {
+submitButton.addEventListener("click", async function (event) {
     event.preventDefault();
     let params = new FormData(id("input-form"));
-    fetch(tvUrl + encodeURIComponent(params.get("Show")))
-        .then(response => {
+
+    const response = await fetch(tvUrl + encodeURIComponent(params.get("Show")));
+
+    const shows = await response.json();
+
+    console.log(shows);
+    /*fetch(tvUrl + encodeURIComponent(params.get("Show")))
+      .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -28,4 +34,6 @@ submitButton.addEventListener("click", function (event) {
         
        
         .catch(error => console.error('Error:', error));
+
+        */
 });
