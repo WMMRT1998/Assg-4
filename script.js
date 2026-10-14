@@ -54,9 +54,25 @@ submitButton.addEventListener("click", async function (event) {
 function createShowCard(show) {
     card = document.createElement("div");
     card.classList.add("show-card");
-    let ShowName = document.createElement("h2");
+
+    let ShowName = document.createElement("h4");
+    let showDetails = document.createElement("ul");
+    let showSummary = document.createElement("li");
+    let showGenres = document.createElement("li");
+
+    
+
     ShowName.textContent = show.name;
+    showSummary.textContent = show.summary;
+
+    showSummary.textContent = showSummary.textContent.replace(/<[^>]*>?/gm, '');
+
+    showGenres.textContent = "Genres: " + show.genres.join(", ");
+
     card.appendChild(ShowName);
+    showDetails.appendChild(showSummary);
+    showDetails.appendChild(showGenres);
+    card.appendChild(showDetails);
     console.log(show.name);
 
     results.appendChild(card);
