@@ -8,6 +8,7 @@ let submitButton = document.getElementById("submit-btn");
 
 submitButton.addEventListener("click", async function (event) {
     event.preventDefault();
+    
     let params = new FormData(id("input-form"));
 
     const response = await fetch(tvUrl + encodeURIComponent(params.get("Show")));
@@ -64,13 +65,15 @@ async function getCast(showId) {
     return cast;
 }
 
-function createShowCard(show) {
-
-    let cast = getCast(show.id);
-
+async function createShowCard(show) {
 
     let castList = document.createElement("ul");
+    let cast = await getCast(show.id);
 
+    //Only show first 5 cast members, or all cast if there are less than 5.
+    for (let i = 0; i < 5 && i < cast.length; i++) {
+        castList.appendChild(document.createElement("li")).textContent = cast[i].person.name;
+    }
 
     card = document.createElement("div");
     card.classList.add("show-card");
