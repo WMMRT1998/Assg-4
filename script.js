@@ -17,15 +17,16 @@ submitButton.addEventListener("click", async function (event) {
     console.log(shows);
 
     for (let show of shows) {
-       
+
         createShowCard(show.show);
+
     }
-   
-   
-   
-   //Original code below, commented out for reference. I switched to async/await because it seemed easier to write and read. 
-   //Async felt more like previous code I had written in the past, and seemed more intuitive to me.
-   
+
+
+
+    //Original code below, commented out for reference. I switched to async/await because it seemed easier to write and read. 
+    //Async felt more like previous code I had written in the past, and seemed more intuitive to me.
+
     /*fetch(tvUrl + encodeURIComponent(params.get("Show")))
       .then(response => {
             if (!response.ok) {
@@ -49,9 +50,28 @@ submitButton.addEventListener("click", async function (event) {
         */
 });
 
-
+async function getCast(showId) {
+    const response = await fetch(castUrl.replace("SHOW_ID", showId));
+    const cast = await response.json();
+    /*
+            Test to make sure this function does get class list for each show.
+    
+        for (let member of cast) {
+            console.log(member.person.name);
+            }
+            
+    */
+    return cast;
+}
 
 function createShowCard(show) {
+
+    let cast = getCast(show.id);
+
+
+    let castList = document.createElement("ul");
+
+
     card = document.createElement("div");
     card.classList.add("show-card");
 
@@ -60,7 +80,8 @@ function createShowCard(show) {
     let showSummary = document.createElement("li");
     let showGenres = document.createElement("li");
 
-    
+
+
 
     ShowName.textContent = show.name;
     showSummary.textContent = show.summary;
@@ -72,6 +93,7 @@ function createShowCard(show) {
     card.appendChild(ShowName);
     showDetails.appendChild(showSummary);
     showDetails.appendChild(showGenres);
+    showDetails.appendChild(castList);
     card.appendChild(showDetails);
     console.log(show.name);
 
