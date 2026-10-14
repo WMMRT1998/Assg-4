@@ -15,6 +15,17 @@ submitButton.addEventListener("click", async function (event) {
     const shows = await response.json();
 
     console.log(shows);
+
+    for (let show of shows) {
+       
+        createShowCard(show.show);
+    }
+   
+   
+   
+   //Original code below, commented out for reference. I switched to async/await because it seemed easier to write and read. 
+   //Async felt more like previous code I had written in the past, and seemed more intuitive to me.
+   
     /*fetch(tvUrl + encodeURIComponent(params.get("Show")))
       .then(response => {
             if (!response.ok) {
@@ -37,3 +48,13 @@ submitButton.addEventListener("click", async function (event) {
 
         */
 });
+
+
+
+function createShowCard(show) {
+    card = document.createElement("div");
+    card.classList.add("show-card");
+    console.log(show.name);
+
+
+}
