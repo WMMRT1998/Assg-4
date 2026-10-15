@@ -125,6 +125,8 @@ async function createShowCard(show) {
     showEnded.textContent = show.ended;
 
     //I got it to work by removing label
+
+
     clearNoResults(showSummary);
     clearNoResults(showGenres);
     clearNoResults(showPremiere);
@@ -132,6 +134,8 @@ async function createShowCard(show) {
     clearNoResults(showEnded);
 
     //Now, while labels, show up regardless, there is no null value represented
+
+
 
     showGenresLbl.textContent = "Genres: " + showGenres.textContent;
     showPremiereLbl.textContent = "Premiered: " + showPremiere.textContent;
@@ -142,12 +146,23 @@ async function createShowCard(show) {
 
     card.appendChild(ShowName);
     showDetails.appendChild(showSummary);
+    /*
     showDetails.appendChild(showGenresLbl);
     showDetails.appendChild(showPremiereLbl);
     showDetails.appendChild(showEndedLbl);
     showDetails.appendChild(showRatingLbl);
+    */
     showDetails.appendChild(castList);
     showDetails.appendChild(showURL);
+    
+
+    //A new solution so labels are only added if the value is not empty
+    addLabels(showDetails, showGenres, showGenresLbl);
+    addLabels(showDetails, showPremiere, showPremiereLbl);
+    addLabels(showDetails, showRating, showRatingLbl);
+    addLabels(showDetails, showEnded, showEndedLbl);
+
+
     card.appendChild(showDetails);
     console.log(show.name);
 
@@ -171,4 +186,13 @@ async function clearNoResults(input) {
     ) {
         input.remove();
     }
+}
+
+
+//I was gonna use if statements, but I figured a function that did it would be better
+async function addLabels(parent, input, label) {
+    if (input.textContent.trim() !== '' && input.textContent.trim() !== 'null' && input.textContent.trim() !== 'undefined') {
+        parent.appendChild(label);
+    }
+
 }
