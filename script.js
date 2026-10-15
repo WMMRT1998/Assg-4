@@ -1,6 +1,6 @@
 const tvUrl = "https://api.tvmaze.com/search/shows?q=";
 const castUrl = "https://api.tvmaze.com/shows/SHOW_ID/cast";
-
+showLookup("The Office");
 let id = (id) => document.getElementById(id);
 let results = document.getElementById("results");
 
@@ -10,10 +10,19 @@ submitButton.addEventListener("click", async function (event) {
     event.preventDefault();
     clearResults();
     
+    
     let params = new FormData(id("input-form"));
 
-    const response = await fetch(tvUrl + encodeURIComponent(params.get("Show")));
+    await showLookup(params.get("Show"));
 
+
+    //I commented the below code and made a function that did it all called showLookup
+    //This was so I could call a default search for "The Office" when page loads
+    //All I had to do was call the same function with parems.get in event listener
+
+
+    //const response = await fetch(tvUrl + encodeURIComponent(params.get("Show")));
+/*
     const shows = await response.json();
 
 
@@ -73,6 +82,30 @@ async function getCast(showId) {
             
     */
     return cast;
+}
+
+async function showLookup(input){
+
+    const response = await fetch(tvUrl + encodeURIComponent(input));
+
+    const shows = await response.json();
+
+
+    //This is a check to see if the search returned any results. If not, it will display a message
+    if (shows.length === 0) {
+        let noResults = document.createElement("p");
+        noResults.textContent = "No results found.";
+        results.appendChild(noResults);
+        return;
+    }
+
+    console.log(shows);
+
+    for (let show of shows) {
+
+        createShowCard(show.show);
+
+    }
 }
 
 async function createShowCard(show) {
