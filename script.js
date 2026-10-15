@@ -83,9 +83,20 @@ async function createShowCard(show) {
     let showDetails = document.createElement("ul");
     let showSummary = document.createElement("li");
     let showGenres = document.createElement("li");
+    let showPremiere = document.createElement("li");
+    let showRating = document.createElement("li");
+    let showEnded = document.createElement("li");
+    let showURL = document.createElement("a");
+    showURL.textContent = "More Info on TVMaze"
+    showURL.href = show.url;
 
 
-
+//doesn't work yet, but I want to remove the list item if it is empty.
+    clearNoResults(showSummary);
+    clearNoResults(showGenres);
+    clearNoResults(showPremiere);
+    clearNoResults(showRating);
+    clearNoResults(showEnded);
 
     ShowName.textContent = show.name;
     showSummary.textContent = show.summary;
@@ -93,11 +104,18 @@ async function createShowCard(show) {
     showSummary.textContent = showSummary.textContent.replace(/<[^>]*>?/gm, '');
 
     showGenres.textContent = "Genres: " + show.genres.join(", ");
+    showPremiere.textContent = "Premiered: " + show.premiered;
+    showRating.textContent = "Rating: " + show.rating.average;
+    showEnded.textContent = "Ended: " + show.ended;
 
     card.appendChild(ShowName);
     showDetails.appendChild(showSummary);
     showDetails.appendChild(showGenres);
+    showDetails.appendChild(showPremiere);
+    showDetails.appendChild(showEnded);
+    showDetails.appendChild(showRating);
     showDetails.appendChild(castList);
+    showDetails.appendChild(showURL);
     card.appendChild(showDetails);
     console.log(show.name);
 
@@ -107,5 +125,13 @@ async function createShowCard(show) {
 function clearResults() {
     while (results.firstChild) {
         results.removeChild(results.firstChild);
+    }
+}
+
+//Doesn't work yet
+async function clearNoResults(input) {
+    await new Promise(resolve => setTimeout(resolve, 100));
+    if (input.textContent === '') {
+        showDetails.removeChild(input);
     }
 }
