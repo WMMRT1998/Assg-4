@@ -16,6 +16,15 @@ submitButton.addEventListener("click", async function (event) {
 
     const shows = await response.json();
 
+
+    //This is a check to see if the search returned any results. If not, it will display a message
+    if (shows.length === 0) {
+        let noResults = document.createElement("p");
+        noResults.textContent = "No results found.";
+        results.appendChild(noResults);
+        return;
+    }
+
     console.log(shows);
 
     for (let show of shows) {
