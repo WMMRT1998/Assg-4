@@ -84,11 +84,21 @@ async function createShowCard(show) {
     let showDetails = document.createElement("ul");
     
     //This is the details i want for each show and child of the showDetails 
+    
+
+    //My solution to the problem of the labels causing clearNoResults to not work was to create separate elements for li and values
+    let showGenresLbl = document.createElement("li");
+    let showPremiereLbl = document.createElement("li");
+    let showRatingLbl = document.createElement("li");
+    let showEndedLbl = document.createElement("li");
+
     let showSummary = document.createElement("li");
-    let showGenres = document.createElement("li");
-    let showPremiere = document.createElement("li");
-    let showRating = document.createElement("li");
-    let showEnded = document.createElement("li");
+    let showGenres = document.createElement("p");
+    let showPremiere = document.createElement("p");
+    let showRating = document.createElement("p");
+    let showEnded = document.createElement("p");
+
+
     let showURL = document.createElement("a");
     showURL.textContent = "More Info on TVMaze"
     showURL.href = show.url;
@@ -102,7 +112,7 @@ async function createShowCard(show) {
 
 /*
     //The label's here were causing clearNoResults to not work, so I removed them
-
+    //replaced with new solution of creating separate elements for li and values
     showGenres.textContent = "Genres: " + show.genres.join(", ");
     showPremiere.textContent = "Premiered: " + show.premiered;
     showRating.textContent = "Rating: " + show.rating.average;
@@ -121,12 +131,21 @@ async function createShowCard(show) {
     clearNoResults(showRating);
     clearNoResults(showEnded);
 
+    //Now, while labels, show up regardless, there is no null value represented
+
+    showGenresLbl.textContent = "Genres: " + showGenres.textContent;
+    showPremiereLbl.textContent = "Premiered: " + showPremiere.textContent;
+    showRatingLbl.textContent = "Rating: " + showRating.textContent;
+    showEndedLbl.textContent = "Ended: " + showEnded.textContent;
+
+
+
     card.appendChild(ShowName);
     showDetails.appendChild(showSummary);
-    showDetails.appendChild(showGenres);
-    showDetails.appendChild(showPremiere);
-    showDetails.appendChild(showEnded);
-    showDetails.appendChild(showRating);
+    showDetails.appendChild(showGenresLbl);
+    showDetails.appendChild(showPremiereLbl);
+    showDetails.appendChild(showEndedLbl);
+    showDetails.appendChild(showRatingLbl);
     showDetails.appendChild(castList);
     showDetails.appendChild(showURL);
     card.appendChild(showDetails);
