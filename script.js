@@ -80,7 +80,10 @@ async function createShowCard(show) {
     card.classList.add("show-card");
 
     let ShowName = document.createElement("h4");
+
     let showDetails = document.createElement("ul");
+    
+    //This is the details i want for each show and child of the showDetails 
     let showSummary = document.createElement("li");
     let showGenres = document.createElement("li");
     let showPremiere = document.createElement("li");
@@ -91,22 +94,32 @@ async function createShowCard(show) {
     showURL.href = show.url;
 
 
-//doesn't work yet, but I want to remove the list item if it is empty.
-    clearNoResults(showSummary);
-    clearNoResults(showGenres);
-    clearNoResults(showPremiere);
-    clearNoResults(showRating);
-    clearNoResults(showEnded);
 
     ShowName.textContent = show.name;
     showSummary.textContent = show.summary;
 
     showSummary.textContent = showSummary.textContent.replace(/<[^>]*>?/gm, '');
 
+/*
+    //The label's here were causing clearNoResults to not work, so I removed them
+
     showGenres.textContent = "Genres: " + show.genres.join(", ");
     showPremiere.textContent = "Premiered: " + show.premiered;
     showRating.textContent = "Rating: " + show.rating.average;
     showEnded.textContent = "Ended: " + show.ended;
+
+*/
+    showGenres.textContent = show.genres.join(", ");
+    showPremiere.textContent = show.premiered;
+    showRating.textContent = show.rating.average;
+    showEnded.textContent = show.ended;
+
+    //I got it to work by removing label
+    clearNoResults(showSummary);
+    clearNoResults(showGenres);
+    clearNoResults(showPremiere);
+    clearNoResults(showRating);
+    clearNoResults(showEnded);
 
     card.appendChild(ShowName);
     showDetails.appendChild(showSummary);
@@ -128,10 +141,15 @@ function clearResults() {
     }
 }
 
-//Doesn't work yet
+//Kinda Works now
 async function clearNoResults(input) {
     await new Promise(resolve => setTimeout(resolve, 100));
-    if (input.textContent === '') {
-        showDetails.removeChild(input);
+    let value = input.textContent.trim();
+    if (
+        value === '' || 
+        value === 'null' || 
+        value === 'undefined'
+    ) {
+        input.remove();
     }
 }
