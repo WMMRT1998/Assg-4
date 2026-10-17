@@ -9,65 +9,65 @@ let submitButton = document.getElementById("submit-btn");
 submitButton.addEventListener("click", async function (event) {
     event.preventDefault();
     clearResults();
-    
-    
+
+
     let params = new FormData(id("input-form"));
 
     await showLookup(params.get("Show"));
 
 
-    //I commented the below code and made a function that did it all called showLookup
-    //This was so I could call a default search for "The Office" when page loads
-    //All I had to do was call the same function with parems.get in event listener
+    /*I commented the below code and made a function that did it all called showLookup
+    This was so I could call a default search for "The Office" when page loads
+    All I had to do was call the same function with parems.get in event listener
 
 
-    //const response = await fetch(tvUrl + encodeURIComponent(params.get("Show")));
-/*
-    const shows = await response.json();
-
-
-    //This is a check to see if the search returned any results. If not, it will display a message
-    if (shows.length === 0) {
-        let noResults = document.createElement("p");
-        noResults.textContent = "No results found.";
-        results.appendChild(noResults);
-        return;
-    }
-
-    console.log(shows);
-
-    for (let show of shows) {
-
-        createShowCard(show.show);
-
-    }
-
-
-
-    //Original code below, commented out for reference. I switched to async/await because it seemed easier to write and read. 
-    //Async felt more like previous code I had written in the past, and seemed more intuitive to me.
-
-    /*fetch(tvUrl + encodeURIComponent(params.get("Show")))
-      .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-
-        
-        .then(shows => {
-            console.log(shows)
-            console.log(shows[0].show.name)
-        
-        
-        })
-       
-        
-       
-        .catch(error => console.error('Error:', error));
-
-        */
+    const response = await fetch(tvUrl + encodeURIComponent(params.get("Show")));*/
+    /*
+        *const shows = await response.json();
+    
+    
+        //This is a check to see if the search returned any results. If not, it will display a message
+        if (shows.length === 0) {
+            let noResults = document.createElement("p");
+            noResults.textContent = "No results found.";
+            results.appendChild(noResults);
+            return;
+        }
+    
+        console.log(shows);
+    
+        for (let show of shows) {
+    
+            createShowCard(show.show);
+    
+        }
+    
+    
+    
+        //Original code below, commented out for reference. I switched to async/await because it seemed easier to write and read. 
+        //Async felt more like previous code I had written in the past, and seemed more intuitive to me.
+    
+        /*fetch(tvUrl + encodeURIComponent(params.get("Show")))
+          .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+    
+            
+            .then(shows => {
+                console.log(shows)
+                console.log(shows[0].show.name)
+            
+            
+            })
+           
+            
+           
+            .catch(error => console.error('Error:', error));
+    
+            */
 });
 
 async function getCast(showId) {
@@ -84,7 +84,7 @@ async function getCast(showId) {
     return cast;
 }
 
-async function showLookup(input){
+async function showLookup(input) {
 
     const response = await fetch(tvUrl + encodeURIComponent(input));
 
@@ -124,9 +124,9 @@ async function createShowCard(show) {
     let ShowName = document.createElement("h4");
 
     let showDetails = document.createElement("ul");
-    
+
     //This is the details i want for each show and child of the showDetails 
-    
+
 
     //My solution to the problem of the labels causing clearNoResults to not work was to create separate elements for li and values
     let showGenresLbl = document.createElement("li");
@@ -152,15 +152,15 @@ async function createShowCard(show) {
 
     showSummary.textContent = showSummary.textContent.replace(/<[^>]*>?/gm, '');
 
-/*
-    //The label's here were causing clearNoResults to not work, so I removed them
-    //replaced with new solution of creating separate elements for li and values
+    /*
+    The label's here were causing clearNoResults to not work, so I removed them
+    replaced with new solution of creating separate elements for li and values
     showGenres.textContent = "Genres: " + show.genres.join(", ");
     showPremiere.textContent = "Premiered: " + show.premiered;
     showRating.textContent = "Rating: " + show.rating.average;
     showEnded.textContent = "Ended: " + show.ended;
 
-*/
+    */
     showGenres.textContent = show.genres.join(", ");
     showPremiere.textContent = show.premiered;
     showRating.textContent = show.rating.average;
@@ -196,7 +196,7 @@ async function createShowCard(show) {
     */
     showDetails.appendChild(castList);
     showDetails.appendChild(showURL);
-    
+
 
     //A new solution so labels are only added if the value is not empty
     addLabels(showDetails, showGenres, showGenresLbl);
@@ -222,8 +222,8 @@ async function clearNoResults(input) {
     await new Promise(resolve => setTimeout(resolve, 100));
     let value = input.textContent.trim();
     if (
-        value === '' || 
-        value === 'null' || 
+        value === '' ||
+        value === 'null' ||
         value === 'undefined'
     ) {
         input.remove();

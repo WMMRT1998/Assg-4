@@ -1,6 +1,7 @@
 # Assg-4
 CSC 372 ASSG 4
-
+This Assignment's purpose is to showcase using fetch to access and retrieve info from an api. In this assg I originally tried to use a nested approach with .this, but ultimately decided using the async approach felt more natural to me since it allowed me to write similar to Java from previous classes. I inititally struggled with getting the data to disappear after a null entry. My issue is that it was checking the full section that included a front label i made, So null did not appear as null or ''. Once i fixed that, I turned the process into its own function. 
+Then when I needed to make a default search, I would have to write code just for the default search that matched the buttons search code. Because of this, i revised it so that the actual fetch was apart of an independant fuction that the button calls using whatever the user types in.
 
 # Post 10-15 showLookup commit
 The assignment is mostly complete as of now. The goal for me from here on out is to tidy up the code. I would like to make it more efficient in terms of lines of code. I would like to make more functions to do things for me that I repeat. This way changes can be quicker, and it is easier to read. I don't like deleting my original code, so I will use multi-line comments cause they can be minimized, and you can see how I originally thought it through. You could through commit history, but I doubt you will be looking at it in detail
