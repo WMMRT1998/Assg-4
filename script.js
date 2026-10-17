@@ -1,3 +1,16 @@
+/*
+Name: Russell Webster
+  Date: 09.18.2026
+  CSC 372-01
+
+  This is th js file for the tv search up. The actual fetch is its own function, that gets called by default
+  on page load to search the office. The event listener for button also calls function to look up whatever is typed
+  in search bar. Th lookup function calls a seperate function that creates the cards, in a for loop so that 10 cards
+  are created if possible. If no matches,it shows a no results text box.
+
+*/ 
+
+
 const tvUrl = "https://api.tvmaze.com/search/shows?q=";
 const castUrl = "https://api.tvmaze.com/shows/SHOW_ID/cast";
 showLookup("The Office");
